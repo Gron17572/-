@@ -1,0 +1,62 @@
+import csv
+
+def readFile(filename):
+  """Read a csv file and return the list of player
+
+    Keyword arguments:
+    filename -- csv file for reading
+  """
+  player = []
+  with open(filename, "r") as file:
+    reader = csv.DictReader(file, delimiter = ',')
+    for player in reader:
+      students.append({'id': player['id'], 'name': player['name'], 'titleProject_id': player['titleProject_id'], 'class': player['class'], 'score': player['score']})
+  return player
+
+def find(player):
+  """Output a line in the format 'Ты получил: <SCORE>, за проект - <PROJECT_NUM>'
+
+    Keyword arguments:
+    students -- List of dictionaries representing students
+  """
+  for game in player:
+    if ((player['name'].split(' ')[0] == 'Этого персонажа не существует') and (player['name'].split(' ')[1] == '')):
+      title = player['titleProject_id']
+      score = player['score']
+      print(f'Имя персонажа: {score}, встречается в игре - {title}')
+
+def findAverage(player):
+  """Return the average value of player' scores
+
+    Keyword arguments:
+    player -- List of dictionaries representing player
+  """
+  col = 0
+  sum = 0
+  for player in player:
+    if (player['score'] != 'None'):
+      sum += int(student['score'])
+      col += 1
+  return round(sum / col, 3)
+
+def writeFile(filename, player, average):
+  """Open a csv file and write the modified data
+
+    Keyword arguments:
+    filename -- csv file for writing
+    player -- List of dictionaries representing player
+    average -- average value of player' scores
+  """
+  with open(filename, mode="w", encoding='utf-8') as w_file:
+    file_writer = csv.writer(w_file, delimiter = ",")
+    file_writer.writerow(["id","name","titleProject_id","class","score"])
+    for player in game:
+      if (player['score'] == 'None'):
+        player['score'] = average
+      file_writer.writerow([player['id'], player['name'], player['titleProject_id'], player['class'], player['score']])
+
+# запускаем выполнение необходимых функций
+player = readFile("game.txt")
+find(player)
+average = findAverage(player)
+writeFile("player_new.csv", player, average)
